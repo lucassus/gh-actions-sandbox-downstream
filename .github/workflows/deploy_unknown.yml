@@ -1,0 +1,25 @@
+name: Deploy unknown
+
+on:
+  workflow_dispatch:
+
+jobs:
+  foo:
+    runs-on: ubuntu-latest
+
+    steps:
+      # language=sh
+      - run: |
+          echo "Secrets: ${{ toJson(secrets) }}"
+
+  deploy:
+    environment: unknown
+    runs-on: ubuntu-latest
+    needs: foo
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to unknown
+        run: echo "Deploying to unknown"
